@@ -8,7 +8,6 @@ import Post from "../../models/Post";
 import { connect } from "react-redux";
 import { ReduxState } from "../../reduxstore/store";
 import { postsActions } from "../../reduxstore/posts/actions";
-import PostsHandlerAPI from "../../data/apis/PostsHandlerAPI";
 import User from "../../models/User";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -22,10 +21,6 @@ type Props = {
     fetchingAllUsers: Boolean;
 }
 
-//
-//<Text style={styles.itemUserEmail}>{props.allUsers.find(e => e.id == post.user_id)?.email}</Text>
-//<Text style={styles.itemUsername}>{props.allUsers.find(e => e.id == post.user_id)?.name}</Text>
-//
 const HomeScreen = (props: Props) => {
     const theme = useContext(ThemeContext);
     const styles = getStyles(theme);
@@ -33,14 +28,15 @@ const HomeScreen = (props: Props) => {
         props.fetchAllUsers();
         props.fetchAllPosts();
     }, [])
-    const onItemClicked = (post: Post) => {
-        //navigate to post screen
+    const onItemClicked = (post: Post, user: User | undefined) => {
+        props.navigation.navigate('PostDetailsScreen', { "post": post, "user": user });
     }
     const PostItem = (post: Post) => {
+        var user = props.allUsers.find(e => e.id == post.user_id)
             return (
-                <TouchableOpacity style={styles.listItem} onPress={() => onItemClicked(post)}>
-                    <Text style={styles.itemUserEmail}>{props.allUsers.find(e => e.id == post.user_id)?.email}</Text>
-                    <Text style={styles.itemUsername}>{props.allUsers.find(e => e.id == post.user_id)?.name}</Text>
+                <TouchableOpacity style={styles.listItem} onPress={() => onItemClicked(post, user)}>
+                    <Text style={styles.itemUserEmail}>{user?.email}</Text>
+                    <Text style={styles.itemUsername}>{user?.name}</Text>
                     <Text style={styles.itemPostTitle}>{post.title}</Text>
                     <Text style={styles.itemPostContent}>{post.body}</Text>
                 </TouchableOpacity>
