@@ -9,6 +9,7 @@ import Theme from "../../models/Theme";
 import ThemeContext from "../../theme/ThemeContext";
 import PostsHandlerAPI from "../../data/apis/PostsHandlerAPI";
 import Comment from "../../models/Comment";
+import { Avatar } from 'react-native-elements';
 
 type Props = {
     route: RouteProp<MainStackNavigationParams, 'PostDetailsScreen'>;
@@ -21,19 +22,28 @@ const HomeScreen = (props: Props) => {
     const styles = getStyles(theme);
     const user = props.route.params.user;
     const post = props.route.params.post;
+    var avatarTitle = ":D";
+    if(user) avatarTitle = user?.name.split(" ")[0].charAt(0) + user?.name.split(" ")[1].charAt(0);
+        
 
     useEffect(() => {
         PostsHandlerAPI.getCommentsByPostId(post.id)
         .then(response => {
             setComments(response);
             console.log(response);
+        }).catch(err => {
+            
         });
     }, [])
 
     const PostItem = (comment: Comment) => {
+        var commentAvatarTitle = comment.name.split(" ")[0].charAt(0) + comment.name.split(" ")[1].charAt(0);
             return (
                 <TouchableOpacity style={styles.listItem}>
-                    <Text style={styles.eommentUsername}>{comment.name}</Text>
+                    <View style={styles.horizontalView}>
+                        <Avatar containerStyle={styles.avatar} size="small" rounded title={commentAvatarTitle} />
+                        <Text style={styles.commentUsername}>{comment.name}</Text>
+                    </View>
                     <Text style={styles.commentBody}>{comment.body}</Text>
                 </TouchableOpacity>
             )
@@ -41,17 +51,18 @@ const HomeScreen = (props: Props) => {
 
     return(
         <View style={styles.container}>
-            <Text style={styles.email}>{user?.email}</Text>
-            <Text style={styles.username}>{user?.name}</Text>
+            <View style={styles.horizontalView}>
+                <Avatar containerStyle={styles.avatar} size="large" rounded title={avatarTitle} />
+                <Text style={styles.username}>{!!user? user.name : "Incognito User"}</Text>
+            </View>
             <Text style={styles.postTitle}>{post.title}</Text>
             <Text style={styles.postContent}>{post.body}</Text>
             <Text style={styles.header}>Posts</Text>
-                <FlatList
-                style={styles.listItem}
-                data={comments}
-                renderItem={(item) => PostItem(item.item)}
-                keyExtractor={(item) => item.id.toString()} 
-            />
+            <FlatList
+                    data={comments}
+                    renderItem={(item) => PostItem(item.item)}
+                    keyExtractor={(item) => item.id.toString()} 
+                    />
         </View>
     )
 }
@@ -60,38 +71,49 @@ const getStyles = (theme: Theme) => StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
+        paddingHorizontal: 5,
+        backgroundColor: theme.primaryColor,
+    },
+    horizontalView: {
+        marginTop: 10,
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    avatar: {
+        backgroundColor: theme.secondaryColor,
     },
     header: {
         fontSize: 25,
-        color: theme.blackColor,
+        color: theme.whiteColor,
         textAlign: 'center'
     },
-    email: {
-        color: theme.blackColor,
-        fontSize: 15,
-    },
     username: {
-        color: theme.blackColor,
-        fontSize: 13,
+        color: theme.secondaryColor,
+        fontSize: 20,
+        marginLeft: 10,
     },
     postTitle: {
+        color: theme.secondaryColor,
         marginVertical: 5,
     },
     postContent: {
-
+        color: theme.blackColor,
     },
     listItem: {
         borderWidth: 2,
+        borderRadius: 15,
         borderColor: theme.whiteColor,
+        backgroundColor: theme.surfaceColor,
         marginVertical: 5,
-        backgroundColor: theme.primaryColor,
-        padding: 5,
+        padding: 10,
     },
-    eommentUsername: {
-
+    commentUsername: {
+        marginLeft: 10,
+        color: theme.blackColor,
     },
     commentBody: {
-
+        marginTop: 15,
+        color: theme.blackColor,
     },
 });
 
