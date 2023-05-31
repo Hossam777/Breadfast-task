@@ -13,9 +13,7 @@ const SplashScreen = (props: Props) => {
     const theme = useContext(ThemeContext);
     const styles = getStyles(theme);
     setTimeout(() => {
-        //go to home screen
-        //props.navigation.replace("HomeScreen")
-        console.log("navigated")
+        props.navigation.replace("HomeScreen")
     }, 2500);
     return (
         <View style={styles.container}>
