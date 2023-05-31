@@ -5,6 +5,6 @@ dependencies used :
   https://reactnavigation.org/docs/stack-navigator/
   
   
-![alt text](https://github.com/Hossam777/Breadfast-task/blog/screen1.png?raw=true)
-![alt text](https://github.com/Hossam777/Breadfast-task/blog/screen2.png?raw=true)
-![alt text](https://github.com/Hossam777/Breadfast-task/blog/screen3.png?raw=true)
+![alt text](https://github.com/Hossam777/Breadfast-task/tree/main/blog/screen1.png?raw=true)
+![alt text](https://github.com/Hossam777/Breadfast-task/tree/main/blog/screen2.png?raw=true)
+![alt text](https://github.com/Hossam777/Breadfast-task/tree/main/blog/screen3.png?raw=true)
