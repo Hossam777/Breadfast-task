@@ -4,7 +4,6 @@ dependencies used :
   https://reactnativeelements.com/docs/3.4.2/avatar
   https://reactnavigation.org/docs/stack-navigator/
   
-  
-![alt text](https://github.com/Hossam777/Breadfast-task/tree/main/blog/screen1.png)
-![alt text](https://github.com/Hossam777/Breadfast-task/tree/main/blog/screen2.png?raw=true)
-![alt text](https://github.com/Hossam777/Breadfast-task/tree/main/blog/screen3.png?raw=true)
+  <img src="https://github.com/Hossam777/Breadfast-task/tree/main/blog/screen1.png" alt="Screen shot 1" />
+  <img src="https://github.com/Hossam777/Breadfast-task/tree/main/blog/screen2.png" alt="Screen shot 2" />
+  <img src="https://github.com/Hossam777/Breadfast-task/tree/main/blog/screen3.png" alt="Screen shot 3" />
